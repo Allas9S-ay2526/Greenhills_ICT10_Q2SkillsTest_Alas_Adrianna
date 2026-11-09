@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Periodic Table Information Finder | Skills test</title>
+    <!-- PyScript core dependencies -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.7.3/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2025.7.3/core.js"></script>
+</head>
+<body>
+    <form onsubmit="return false;">
+        <input type="text" id="input1" placeholder="Enter the Element Symbol (e.g., H, He, Li)"> <br>
+        <!-- The button triggers the Python function -->
+        <input type="button" id="input2" py-click="Element_Information" value="Search"> 
+    </form>
+    <div id="results"></div>
+
+    <!-- This defines your Python logic using modern PyScript syntax -->
+    <script type="py">
+        from pyscript import document
+
+        # Simple example dictionary database for demonstration
+        elements_db = {
+            "H": "Hydrogen (Atomic Number: 1, Mass: 1.008)",
+            "HE": "Helium (Atomic Number: 2, Mass: 4.0026)",
+            "LI": "Lithium (Atomic Number: 3, Mass: 6.94)"
+        }
+
+        def Element_Information(event):
+            # 1. Grab the input text element and clean its value
+            input_element = document.querySelector("#input1")
+            symbol = input_element.value.strip().upper()
+            
+            # 2. Grab the result display div
+            results_div = document.querySelector("#results")
+            
+            # 3. Handle lookup logic
+            if not symbol:
+                results_div.innerText = "Please enter a symbol first."
+            elif symbol in elements_db:
+                results_div.innerText = elements_db[symbol]
+            else:
+                results_div.innerText = f"Element symbol '{symbol}' not found in sample database."
+    </script>
+</body>
+</html>
